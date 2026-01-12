@@ -1,0 +1,79 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+.eggs/
+*.egg-info/
+
+# Docker
+docker-compose.override.yml
+
+# Prisma
+prisma/migrations/.migration_lock.toml
+
+# Test
+coverage/
+.nyc_output/
+
+# Uploaded files (keep folder structure)
+uploads/*
+!uploads/.gitkeep
+documents/*
+!documents/.gitkeep
+
+# Milvus data
+milvus-data/
+
+# MinIO data
+minio-data/
+
+# PostgreSQL data
+postgres-data/
+
+# etcd data
+etcd-data/
+
+# Cache
+.cache/
+*.cache
+
+# Temporary files
+tmp/
+temp/
+*.tmp

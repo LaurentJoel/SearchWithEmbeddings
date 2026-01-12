@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CENADI_DIRECTOR
+  DIVISION_HEAD
+  USER
+}
+
+enum ActivityType {
+  LOGIN
+  LOGOUT
+  SEARCH
+  DOCUMENT_VIEW
+  DOCUMENT_UPLOAD
+  DOCUMENT_DELETE
+  USER_CREATE
+  USER_UPDATE
+  USER_DELETE
+  SETTINGS_CHANGE
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String
+  name          String?
+  role          Role      @default(USER)
+  division      String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  lastLogin     DateTime?
+  isActive      Boolean   @default(true)
+
+  sessions      Session[]
+  searchHistory SearchHistory[]
+  activities    ActivityLog[]
+
+  @@index([email])
+  @@index([division])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  token        String   @unique
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId])
+}
+
+model SearchHistory {
+  id          String   @id @default(cuid())
+  userId      String
+  query       String
+  mode        String   @default("hybrid")
+  resultsCount Int     @default(0)
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model ActivityLog {
+  id          String       @id @default(cuid())
+  userId      String
+  type        ActivityType
+  description String
+  metadata    Json?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime     @default(now())
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+model Division {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  name        String
+  description String?
+  parentCode  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([code])
+}
+
+model IndexingJob {
+  id             String    @id @default(cuid())
+  status         String    @default("pending")
+  filePath       String?
+  directory      String?
+  filesTotal     Int       @default(0)
+  filesProcessed Int       @default(0)
+  error          String?
+  startedAt      DateTime?
+  completedAt    DateTime?
+  createdAt      DateTime  @default(now())
+
+  @@index([status])
+  @@index([createdAt])
+}
