@@ -166,6 +166,3 @@ curl http://localhost:8000/stats
 - Toutes les connexions internes via réseau Docker
 - Milvus et PostgreSQL non exposés publiquement
 
-## 📝 Licence
-
-Usage interne CENADI
