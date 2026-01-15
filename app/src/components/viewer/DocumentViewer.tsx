@@ -30,6 +30,9 @@ interface PageInfo {
   hasMatch: boolean;
 }
 
+// View modes for the document viewer
+type ViewMode = "full" | "relevant";
+
 export function DocumentViewer({ result, query, onClose }: DocumentViewerProps) {
   const [pdfDoc, setPdfDoc] = useState<pdfjs.PDFDocumentProxy | null>(null);
   const [pages, setPages] = useState<PageInfo[]>([]);
@@ -37,6 +40,7 @@ export function DocumentViewer({ result, query, onClose }: DocumentViewerProps) 
   const [zoom, setZoom] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<ViewMode>("full"); // Default to full document
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRefs = useRef<Map<number, HTMLCanvasElement>>(new Map());
 
@@ -174,20 +178,22 @@ export function DocumentViewer({ result, query, onClose }: DocumentViewerProps) 
   useEffect(() => {
     if (!pdfDoc || pages.length === 0) return;
 
-    // Render all pages with matches, plus a few around current page
+    // In full mode: render current page and neighbors (lazy loading)
+    // In relevant mode: render all displayed pages
     const pagesToRender = new Set<number>();
 
-    pages.forEach((p) => {
-      if (p.hasMatch) pagesToRender.add(p.pageNumber);
-    });
-
-    // Also render current page and neighbors
-    for (let i = Math.max(1, currentPage - 1); i <= Math.min(pdfDoc.numPages, currentPage + 2); i++) {
-      pagesToRender.add(i);
+    if (viewMode === "full") {
+      // Render current page and a few neighbors for smooth scrolling
+      for (let i = Math.max(1, currentPage - 2); i <= Math.min(pdfDoc.numPages, currentPage + 3); i++) {
+        pagesToRender.add(i);
+      }
+    } else {
+      // Render all pages with matches + first + last
+      pagesToShow.forEach((p) => pagesToRender.add(p.pageNumber));
     }
 
     pagesToRender.forEach((pageNum) => renderPage(pageNum));
-  }, [pdfDoc, pages, currentPage, zoom, renderPage]);
+  }, [pdfDoc, pages, currentPage, zoom, renderPage, viewMode, pagesToShow]);
 
   // Scroll to result page
   useEffect(() => {
@@ -217,35 +223,84 @@ export function DocumentViewer({ result, query, onClose }: DocumentViewerProps) 
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [currentPage, pdfDoc, onClose]);
 
-  // Get pages to display: matching pages + first page + last page
+  // Get pages to display based on view mode
   const matchingPages = pages.filter((p) => p.hasMatch);
   
-  // Always include first and last pages for context
-  const pagesToShow = [...matchingPages];
-  const firstPage = pages.find(p => p.pageNumber === 1);
+  // Calculate pages to show based on view mode
+  const pagesToShow = (() => {
+    if (viewMode === "full") {
+      // Full mode: show ALL pages
+      return [...pages];
+    } else {
+      // Relevant mode: show first, last, and matching pages
+      const relevantPages = [...matchingPages];
+      const firstPage = pages.find(p => p.pageNumber === 1);
+      const lastPage = pages.length > 0 ? pages[pages.length - 1] : null;
+      
+      if (firstPage && !relevantPages.some(p => p.pageNumber === 1)) {
+        relevantPages.unshift({ ...firstPage, hasMatch: false });
+      }
+      if (lastPage && lastPage.pageNumber > 1 && !relevantPages.some(p => p.pageNumber === lastPage.pageNumber)) {
+        relevantPages.push({ ...lastPage, hasMatch: false });
+      }
+      
+      // Sort pages by page number
+      relevantPages.sort((a, b) => a.pageNumber - b.pageNumber);
+      return relevantPages;
+    }
+  })();
+
   const lastPage = pages.length > 0 ? pages[pages.length - 1] : null;
-  
-  if (firstPage && !pagesToShow.some(p => p.pageNumber === 1)) {
-    pagesToShow.unshift({ ...firstPage, hasMatch: false });
-  }
-  if (lastPage && lastPage.pageNumber > 1 && !pagesToShow.some(p => p.pageNumber === lastPage.pageNumber)) {
-    pagesToShow.push({ ...lastPage, hasMatch: false });
-  }
-  
-  // Sort pages by page number
-  pagesToShow.sort((a, b) => a.pageNumber - b.pageNumber);
 
   return (
     <div className="fixed inset-0 z-50 bg-primary-900/80 flex">
       {/* Sidebar - Page Thumbnails */}
-      <aside className="w-48 bg-primary-800 border-r border-primary-700 flex flex-col overflow-hidden">
+      <aside className="w-56 bg-primary-800 border-r border-primary-700 flex flex-col overflow-hidden">
         <div className="p-3 border-b border-primary-700">
           <h3 className="text-sm font-semibold text-cream-100">
-            Pages affichees
+            {viewMode === "full" ? "Toutes les pages" : "Pages pertinentes"}
           </h3>
           <p className="text-xs text-cream-400 mt-1">
-            {pagesToShow.length} page{pagesToShow.length > 1 ? "s" : ""} ({matchingPages.length} avec resultats)
+            {pagesToShow.length} sur {pages.length} page{pages.length > 1 ? "s" : ""}
+            {viewMode === "relevant" && ` (${matchingPages.length} avec resultats)`}
           </p>
+        </div>
+
+        {/* View Mode Toggle Button */}
+        <div className="p-2 border-b border-primary-700">
+          <button
+            onClick={() => setViewMode(viewMode === "full" ? "relevant" : "full")}
+            className={`
+              w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg
+              text-sm font-medium transition-all duration-200
+              ${viewMode === "full" 
+                ? "bg-accent-600 text-cream-100 hover:bg-accent-700" 
+                : "bg-primary-600 text-cream-200 hover:bg-primary-500"
+              }
+            `}
+            title={viewMode === "full" 
+              ? "Afficher uniquement les pages pertinentes" 
+              : "Afficher le document complet"
+            }
+          >
+            {viewMode === "full" ? (
+              <>
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+                <span>Pages pertinentes</span>
+              </>
+            ) : (
+              <>
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span>Document complet</span>
+              </>
+            )}
+          </button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-2 space-y-2">
@@ -254,14 +309,27 @@ export function DocumentViewer({ result, query, onClose }: DocumentViewerProps) 
               key={page.pageNumber}
               onClick={() => setCurrentPage(page.pageNumber)}
               className={`
-                w-full p-2 rounded-lg text-left transition-all
+                w-full p-2 rounded-lg text-left transition-all relative
                 ${currentPage === page.pageNumber
                   ? "bg-accent-600 text-cream-100"
-                  : "bg-primary-700 text-cream-300 hover:bg-primary-600"
+                  : page.hasMatch
+                    ? "bg-primary-600 text-cream-200 hover:bg-primary-500 ring-1 ring-yellow-400/50"
+                    : "bg-primary-700 text-cream-300 hover:bg-primary-600"
                 }
               `}
             >
-              <span className="text-sm font-medium">Page {page.pageNumber}</span>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">Page {page.pageNumber}</span>
+                {page.hasMatch && (
+                  <span className="w-2 h-2 rounded-full bg-yellow-400" title="Contient des resultats" />
+                )}
+              </div>
+              {page.pageNumber === 1 && (
+                <span className="text-xs text-cream-400">Premiere</span>
+              )}
+              {lastPage && page.pageNumber === lastPage.pageNumber && page.pageNumber !== 1 && (
+                <span className="text-xs text-cream-400">Derniere</span>
+              )}
             </button>
           ))}
         </div>
