@@ -188,12 +188,15 @@ export function DocumentViewer({ result, query, onClose }: DocumentViewerProps) 
         pagesToRender.add(i);
       }
     } else {
-      // Render all pages with matches + first + last
-      pagesToShow.forEach((p) => pagesToRender.add(p.pageNumber));
+      // Render matching pages + first + last
+      const matchingPageNumbers = pages.filter(p => p.hasMatch).map(p => p.pageNumber);
+      matchingPageNumbers.forEach(num => pagesToRender.add(num));
+      pagesToRender.add(1); // First page
+      if (pages.length > 0) pagesToRender.add(pages.length); // Last page
     }
 
     pagesToRender.forEach((pageNum) => renderPage(pageNum));
-  }, [pdfDoc, pages, currentPage, zoom, renderPage, viewMode, pagesToShow]);
+  }, [pdfDoc, pages, currentPage, zoom, renderPage, viewMode]);
 
   // Scroll to result page
   useEffect(() => {
