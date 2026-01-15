@@ -195,18 +195,25 @@ export function DocumentViewer({ result, query, onClose }: DocumentViewerProps) 
       if (pages.length > 0) pagesToRender.add(pages.length); // Last page
     }
 
-    pagesToRender.forEach((pageNum) => renderPage(pageNum));
-  }, [pdfDoc, pages, currentPage, zoom, renderPage, viewMode]);
+    // Always render the result page first
+    pagesToRender.add(result.page_number);
 
-  // Scroll to result page
+    pagesToRender.forEach((pageNum) => renderPage(pageNum));
+  }, [pdfDoc, pages, currentPage, zoom, renderPage, viewMode, result.page_number]);
+
+  // Scroll to result page when document loads
   useEffect(() => {
-    if (!isLoading && containerRef.current) {
-      const pageElement = containerRef.current.querySelector(
-        `[data-page="${result.page_number}"]`
-      );
-      if (pageElement) {
-        pageElement.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+    if (!isLoading && containerRef.current && pages.length > 0) {
+      // Small delay to ensure canvas is rendered
+      const timer = setTimeout(() => {
+        const pageElement = containerRef.current?.querySelector(
+          `[data-page="${result.page_number}"]`
+        );
+        if (pageElement) {
+          pageElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [isLoading, result.page_number]);
 
