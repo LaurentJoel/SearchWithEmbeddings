@@ -83,15 +83,16 @@ export default function HomePage() {
     } catch (error) {
       console.error("Search error:", error);
       setResults([]);
+      setTotalResults(0);
     } finally {
       setIsLoading(false);
     }
-  }, [filters]);
+  }, [filters.searchMode, filters.division, filters.fileType]);
 
-  // Debounced search
+  // Debounced search - triggers on query change
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (query) {
+      if (query.trim()) {
         handleSearch(query);
       } else {
         // Clear results when query is empty
@@ -102,6 +103,13 @@ export default function HomePage() {
 
     return () => clearTimeout(timer);
   }, [query, handleSearch]);
+
+  // Re-search immediately when filters change (if query exists)
+  useEffect(() => {
+    if (query.trim()) {
+      handleSearch(query);
+    }
+  }, [filters.searchMode, filters.division, filters.fileType]);
 
   // Handle result selection
   const handleResultClick = (result: SearchResult) => {
