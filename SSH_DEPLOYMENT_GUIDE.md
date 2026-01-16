@@ -2,6 +2,16 @@
 
 This is a complete step-by-step guide to deploy the SearchWithEmbeddings application on an Ubuntu server via SSH.
 
+## 🎯 Recommended Approach
+
+**Build Docker images locally → Transfer to server → Monitor with PM2**
+
+This approach is:
+
+- ⚡ **Faster** - No building on server
+- 💾 **Resource-efficient** - Server doesn't need build dependencies
+- 📊 **Better monitoring** - PM2 provides real-time logs and dashboard
+
 ---
 
 ## 📋 Prerequisites
@@ -678,19 +688,22 @@ Save and exit.
 ```bash
 cd /opt/search-app
 
-# Create document directories if they don't exist
-mkdir -p documents/DSI documents/DEL uploads
+# Create base document directories (subfolders are created automatically by the app)
+mkdir -p documents uploads
 
-# Pull images and build
-docker compose -f docker-compose.prod.yml pull
-docker compose -f docker-compose.prod.yml build --no-cache
-
-# Start all services in detached mode
+# If using pre-built images (Option A - Recommended):
 docker compose -f docker-compose.prod.yml up -d
+
+# If building on server:
+# docker compose -f docker-compose.prod.yml pull
+# docker compose -f docker-compose.prod.yml build --no-cache
+# docker compose -f docker-compose.prod.yml up -d
 
 # Watch the logs (optional)
 docker compose -f docker-compose.prod.yml logs -f
 ```
+
+> **Note:** Division subfolders (like `documents/DSI/`, `documents/DEL/`) are created automatically when users upload documents.
 
 ---
 
