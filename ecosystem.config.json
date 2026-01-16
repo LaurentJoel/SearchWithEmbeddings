@@ -1,0 +1,31 @@
+{
+  "apps": [
+    {
+      "name": "cenadi-app",
+      "cwd": "./app",
+      "script": "npm",
+      "args": "run dev",
+      "interpreter": "none",
+      "watch": false,
+      "instances": 1,
+      "exec_mode": "fork",
+      "env": {
+        "NODE_ENV": "development",
+        "PORT": 3000,
+        "DATABASE_URL": "postgresql://cenadi:cenadi123@localhost:5432/cenadi_search",
+        "MILVUS_HOST": "localhost",
+        "MILVUS_PORT": "19530",
+        "INDEXER_URL": "http://localhost:8000",
+        "NEXTAUTH_SECRET": "dev-secret-change-in-production",
+        "NEXTAUTH_URL": "http://localhost:3000",
+        "DOCUMENTS_DIR": "../documents"
+      },
+      "max_memory_restart": "500M",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss",
+      "error_file": "./logs/app-error.log",
+      "out_file": "./logs/app-out.log",
+      "merge_logs": true,
+      "time": true
+    }
+  ]
+}

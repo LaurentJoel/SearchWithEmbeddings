@@ -1,0 +1,71 @@
+# ==============================================================================
+# Python Indexer Service - Production Dockerfile
+# ==============================================================================
+# Optimized for production with multi-stage build and security
+
+# Stage 1: Build stage
+FROM python:3.11-slim AS builder
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+WORKDIR /build
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir --target=/build/packages -r requirements.txt
+
+# Pre-download the embedding model
+RUN PYTHONPATH=/build/packages python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')"
+
+# Stage 2: Production stage
+FROM python:3.11-slim AS production
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/app/packages \
+    HOME=/app
+
+# Install runtime dependencies only
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    tesseract-ocr \
+    tesseract-ocr-fra \
+    tesseract-ocr-eng \
+    poppler-utils \
+    libmagic1 \
+    curl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/* \
+    && rm -rf /var/tmp/*
+
+WORKDIR /app
+
+# Copy packages from builder
+COPY --from=builder /build/packages /app/packages
+COPY --from=builder /root/.cache/torch /app/.cache/torch
+
+# Copy application code
+COPY . .
+
+# Create non-root user with specific UID/GID
+RUN groupadd --gid 1001 appuser \
+    && useradd --uid 1001 --gid 1001 --shell /bin/bash --create-home appuser \
+    && chown -R appuser:appuser /app
+
+USER appuser
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Run with multiple workers for production
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2", "--no-access-log"]

@@ -87,14 +87,14 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-800 via-primary-900 to-primary-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-600 rounded-2xl shadow-lg mb-4">
-            <span className="text-3xl font-bold text-cream-100">C</span>
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-2xl shadow-lg mb-4">
+            <span className="text-3xl font-bold text-primary-700">C</span>
           </div>
-          <h1 className="text-2xl font-heading font-bold text-cream-100">CENADI</h1>
-          <p className="text-cream-400 mt-1">Systeme de Recherche Documentaire</p>
+          <h1 className="text-2xl font-heading font-bold text-white">CENADI</h1>
+          <p className="text-primary-200 mt-1">Systeme de Recherche Documentaire</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8">
@@ -178,7 +178,7 @@ export default function RegisterPage() {
             </div>
 
             <button type="submit" disabled={isLoading}
-              className="w-full py-3 px-4 bg-primary-700 hover:bg-primary-800 text-cream-100 font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-6">
+              className="w-full py-3 px-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-6">
               {isLoading ? (
                 <>
                   <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -202,7 +202,7 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <p className="text-center text-cream-500 text-sm mt-6">2024 CENADI. Tous droits reserves.</p>
+        <p className="text-center text-primary-200 text-sm mt-6">2024 CENADI. Tous droits reserves.</p>
       </div>
     </div>
   );

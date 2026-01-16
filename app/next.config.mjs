@@ -2,17 +2,49 @@
 const nextConfig = {
   output: 'standalone',
   
+  // ===========================================================================
+  // PERFORMANCE OPTIMIZATIONS
+  // ===========================================================================
+  
+  // Compress responses
+  compress: true,
+  
+  // Optimize production builds
+  productionBrowserSourceMaps: false,
+  
+  // Reduce bundle size - disable unused features
+  optimizeFonts: true,
+  
+  // Strict mode for catching bugs
+  reactStrictMode: true,
+  
+  // Power pack optimizations
+  poweredByHeader: false,
+  
   // API timeout for large searches
   experimental: {
     serverActions: {
       bodySizeLimit: '10mb',
     },
+    // Optimize package imports
+    optimizePackageImports: ['lucide-react', '@heroicons/react'],
   },
 
-  // Webpack config for PDF.js
-  webpack: (config) => {
+  // Webpack config for PDF.js and optimization
+  webpack: (config, { dev, isServer }) => {
     config.resolve.alias.canvas = false;
     config.resolve.alias.encoding = false;
+    
+    // Production optimizations
+    if (!dev && !isServer) {
+      // Tree shaking
+      config.optimization = {
+        ...config.optimization,
+        usedExports: true,
+        sideEffects: true,
+      };
+    }
+    
     return config;
   },
 
@@ -25,7 +57,9 @@ const nextConfig = {
   // Image optimization
   images: {
     domains: ['localhost'],
-    unoptimized: true,
+    unoptimized: false, // Enable optimization in production
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60 * 60 * 24, // 24 hours
   },
 
   // Headers for security
