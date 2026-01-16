@@ -196,7 +196,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
     return (
       <Link
         href={href}
-        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${isActive ? "bg-primary-700 text-white shadow-md" : "text-cream-700 hover:bg-primary-100 hover:text-primary-800"}`}
+        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${isActive ? "bg-primary-600 text-white shadow-md" : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"}`}
       >
         <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           {icon}
@@ -219,11 +219,11 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       )}
 
       <aside
-        className={`fixed top-16 left-0 bottom-0 w-64 bg-white border-r border-cream-300 transform transition-transform duration-300 ease-in-out z-30 overflow-y-auto scrollbar-thin scrollbar-thumb-primary-300 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed top-16 left-0 bottom-0 w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out z-30 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div className="p-4 space-y-6">
           <nav>
-            <p className="px-4 text-xs font-semibold text-primary-600 uppercase tracking-wider mb-3">
+            <p className="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
               Navigation
             </p>
             <div className="space-y-1">
@@ -233,12 +233,12 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             </div>
           </nav>
 
-          <div className="h-px bg-cream-300" />
+          <div className="h-px bg-gray-200" />
 
           {!authLoading && isAdmin && (
             <>
               <nav>
-                <p className="px-4 text-xs font-semibold text-primary-600 uppercase tracking-wider mb-3">
+                <p className="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
                   Administration
                 </p>
                 <div className="space-y-1">
@@ -249,10 +249,10 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 
                 {/* Admin Dashboard Stats - Always Visible for Admins */}
                 {adminStats && (
-                  <div className="mt-4 bg-primary-50 rounded-xl p-4 space-y-4">
+                  <div className="mt-4 bg-gray-50 rounded-xl p-4 space-y-4">
                     {/* System Status */}
                     <div className="space-y-2">
-                      <p className="text-xs font-semibold text-primary-600 uppercase">Etat Systeme</p>
+                      <p className="text-xs font-semibold text-gray-500 uppercase">Etat Systeme</p>
                       <div className="grid grid-cols-3 gap-2">
                         <div className={`flex items-center justify-center p-2 rounded-lg ${adminStats.indexer_online ? "bg-green-100" : "bg-red-100"}`}>
                           <div className={`w-2 h-2 rounded-full mr-1 ${adminStats.indexer_online ? "bg-green-500" : "bg-red-500"}`} />
@@ -271,34 +271,34 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
                     {/* Key Metrics */}
                     <div className="space-y-2">
-                      <p className="text-xs font-semibold text-primary-600 uppercase">Documents</p>
+                      <p className="text-xs font-semibold text-gray-500 uppercase">Documents</p>
                       <div className="grid grid-cols-2 gap-2">
-                        <div className="bg-white rounded-lg p-2 text-center">
-                          <p className="text-lg font-bold text-primary-800">{formatNumber(adminStats.total_documents)}</p>
-                          <p className="text-xs text-primary-400">Fichiers</p>
+                        <div className="bg-white rounded-lg p-2 text-center border border-gray-100">
+                          <p className="text-lg font-bold text-gray-800">{formatNumber(adminStats.total_documents)}</p>
+                          <p className="text-xs text-gray-500">Fichiers</p>
                         </div>
-                        <div className="bg-white rounded-lg p-2 text-center">
-                          <p className="text-lg font-bold text-primary-800">{formatNumber(adminStats.total_pages)}</p>
-                          <p className="text-xs text-primary-400">Pages</p>
+                        <div className="bg-white rounded-lg p-2 text-center border border-gray-100">
+                          <p className="text-lg font-bold text-gray-800">{formatNumber(adminStats.total_pages)}</p>
+                          <p className="text-xs text-gray-500">Pages</p>
                         </div>
                       </div>
                     </div>
 
                     {/* Activity */}
                     <div className="space-y-2">
-                      <p className="text-xs font-semibold text-primary-600 uppercase">Activite</p>
+                      <p className="text-xs font-semibold text-gray-500 uppercase">Activite</p>
                       <div className="space-y-1">
-                        <div className="flex justify-between items-center bg-white rounded-lg px-3 py-2">
-                          <span className="text-xs text-primary-600">Recherches aujourd hui</span>
-                          <span className="font-bold text-primary-800">{adminStats.searches_today}</span>
+                        <div className="flex justify-between items-center bg-white rounded-lg px-3 py-2 border border-gray-100">
+                          <span className="text-xs text-gray-600">Recherches aujourd hui</span>
+                          <span className="font-bold text-gray-800">{adminStats.searches_today}</span>
                         </div>
-                        <div className="flex justify-between items-center bg-white rounded-lg px-3 py-2">
-                          <span className="text-xs text-primary-600">Uploads aujourd hui</span>
-                          <span className="font-bold text-primary-800">{adminStats.uploads_today}</span>
+                        <div className="flex justify-between items-center bg-white rounded-lg px-3 py-2 border border-gray-100">
+                          <span className="text-xs text-gray-600">Uploads aujourd hui</span>
+                          <span className="font-bold text-gray-800">{adminStats.uploads_today}</span>
                         </div>
-                        <div className="flex justify-between items-center bg-white rounded-lg px-3 py-2">
-                          <span className="text-xs text-primary-600">Utilisateurs actifs</span>
-                          <span className="font-bold text-primary-800">{adminStats.active_users}</span>
+                        <div className="flex justify-between items-center bg-white rounded-lg px-3 py-2 border border-gray-100">
+                          <span className="text-xs text-gray-600">Utilisateurs actifs</span>
+                          <span className="font-bold text-gray-800">{adminStats.active_users}</span>
                         </div>
                       </div>
                     </div>
@@ -309,28 +309,28 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                   </div>
                 )}
               </nav>
-              <div className="h-px bg-cream-300" />
+              <div className="h-px bg-gray-200" />
             </>
           )}
 
           <div className="px-4">
-            <p className="text-xs font-semibold text-primary-600 uppercase tracking-wider mb-3">
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
               Statistiques
             </p>
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-primary-50 rounded-lg p-3 text-center">
-                <p className="text-2xl font-bold text-primary-700">{formatNumber(stats.documents)}</p>
-                <p className="text-xs text-primary-500">Documents</p>
+                <p className="text-2xl font-bold text-primary-600">{formatNumber(stats.documents)}</p>
+                <p className="text-xs text-gray-500">Documents</p>
               </div>
               <div className="bg-primary-50 rounded-lg p-3 text-center">
-                <p className="text-2xl font-bold text-primary-700">{stats.divisions}</p>
-                <p className="text-xs text-primary-500">Divisions</p>
+                <p className="text-2xl font-bold text-primary-600">{stats.divisions}</p>
+                <p className="text-xs text-gray-500">Divisions</p>
               </div>
             </div>
           </div>
 
-          <div className="px-4 pt-4 border-t border-cream-300">
-            <p className="text-xs text-cream-500">
+          <div className="px-4 pt-4 border-t border-gray-200">
+            <p className="text-xs text-gray-400">
               Version 1.0.0 - Milvus Search
             </p>
           </div>

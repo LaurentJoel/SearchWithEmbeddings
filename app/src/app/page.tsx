@@ -122,7 +122,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-cream-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
       <Header 
         onMenuToggle={() => setSidebarOpen(!sidebarOpen)} 
@@ -147,10 +147,10 @@ export default function HomePage() {
             {/* Search Section */}
             <section className="mb-8">
               <div className="text-center mb-8">
-                <h1 className="text-3xl font-heading font-bold text-primary-800 mb-2">
+                <h1 className="text-3xl font-heading font-bold text-gray-800 mb-2">
                   Recherche Documentaire
                 </h1>
-                <p className="text-primary-600 max-w-2xl mx-auto">
+                <p className="text-gray-600 max-w-2xl mx-auto">
                   Recherchez dans l'ensemble des documents avec la puissance de 
                   l'intelligence artificielle et de la recherche sémantique
                 </p>
@@ -189,12 +189,12 @@ export default function HomePage() {
                 {/* Results Header */}
                 {!isLoading && results.length > 0 && (
                   <div className="flex items-center justify-between mb-4">
-                    <p className="text-primary-600">
-                      <span className="font-semibold text-primary-800">
+                    <p className="text-gray-600">
+                      <span className="font-semibold text-gray-800">
                         {totalResults}
                       </span>{" "}
                       résultat{totalResults > 1 ? "s" : ""} trouvé{totalResults > 1 ? "s" : ""}
-                      <span className="text-primary-400 ml-2">
+                      <span className="text-gray-400 ml-2">
                         ({(searchTime / 1000).toFixed(2)}s)
                       </span>
                     </p>

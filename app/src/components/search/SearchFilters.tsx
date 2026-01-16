@@ -112,7 +112,7 @@ export function SearchFilters({ filters, onChange }: SearchFiltersProps) {
               flex items-center gap-2 px-4 py-2 rounded-lg border-2 transition-all duration-200
               ${filters.searchMode === mode.value
                 ? "border-primary-600 bg-primary-50 text-primary-700"
-                : "border-cream-300 bg-white text-primary-500 hover:border-primary-300"
+                : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
               }
             `}
             title={mode.description}
@@ -128,8 +128,8 @@ export function SearchFilters({ filters, onChange }: SearchFiltersProps) {
       {/* Expand/Collapse Button */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center gap-2 mx-auto text-sm text-primary-500 
-                 hover:text-primary-700 transition-colors"
+        className="flex items-center gap-2 mx-auto text-sm text-gray-500 
+                 hover:text-gray-700 transition-colors"
       >
         <svg 
           className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-180" : ""}`}
@@ -154,18 +154,18 @@ export function SearchFilters({ filters, onChange }: SearchFiltersProps) {
 
       {/* Expanded Filters */}
       {isExpanded && (
-        <div className="mt-4 p-4 bg-white border border-cream-300 rounded-xl shadow-sm">
+        <div className="mt-4 p-4 bg-white border border-gray-200 rounded-xl shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Division Filter */}
             <div>
-              <label className="block text-sm font-medium text-primary-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Division
               </label>
               <select
                 value={filters.division}
                 onChange={(e) => updateFilter("division", e.target.value)}
-                className="w-full px-3 py-2 bg-cream-50 border border-cream-300 rounded-lg
-                         text-primary-700 text-sm
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg
+                         text-gray-700 text-sm
                          focus:border-primary-500 focus:ring-2 focus:ring-primary-100
                          transition-all"
               >
@@ -179,14 +179,14 @@ export function SearchFilters({ filters, onChange }: SearchFiltersProps) {
 
             {/* File Type Filter */}
             <div>
-              <label className="block text-sm font-medium text-primary-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Type de fichier
               </label>
               <select
                 value={filters.fileType}
                 onChange={(e) => updateFilter("fileType", e.target.value)}
-                className="w-full px-3 py-2 bg-cream-50 border border-cream-300 rounded-lg
-                         text-primary-700 text-sm
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg
+                         text-gray-700 text-sm
                          focus:border-primary-500 focus:ring-2 focus:ring-primary-100
                          transition-all"
               >
@@ -200,15 +200,15 @@ export function SearchFilters({ filters, onChange }: SearchFiltersProps) {
 
             {/* Date From */}
             <div>
-              <label className="block text-sm font-medium text-primary-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Du
               </label>
               <input
                 type="date"
                 value={filters.dateFrom}
                 onChange={(e) => updateFilter("dateFrom", e.target.value)}
-                className="w-full px-3 py-2 bg-cream-50 border border-cream-300 rounded-lg
-                         text-primary-700 text-sm
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg
+                         text-gray-700 text-sm
                          focus:border-primary-500 focus:ring-2 focus:ring-primary-100
                          transition-all"
               />
@@ -216,15 +216,15 @@ export function SearchFilters({ filters, onChange }: SearchFiltersProps) {
 
             {/* Date To */}
             <div>
-              <label className="block text-sm font-medium text-primary-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Au
               </label>
               <input
                 type="date"
                 value={filters.dateTo}
                 onChange={(e) => updateFilter("dateTo", e.target.value)}
-                className="w-full px-3 py-2 bg-cream-50 border border-cream-300 rounded-lg
-                         text-primary-700 text-sm
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg
+                         text-gray-700 text-sm
                          focus:border-primary-500 focus:ring-2 focus:ring-primary-100
                          transition-all"
               />
@@ -233,7 +233,7 @@ export function SearchFilters({ filters, onChange }: SearchFiltersProps) {
 
           {/* Clear Filters */}
           {hasActiveFilters && (
-            <div className="mt-4 pt-4 border-t border-cream-200 flex justify-end">
+            <div className="mt-4 pt-4 border-t border-gray-200 flex justify-end">
               <button
                 onClick={clearFilters}
                 className="text-sm text-accent-600 hover:text-accent-700 

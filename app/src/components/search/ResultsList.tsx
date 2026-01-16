@@ -79,7 +79,7 @@ function highlightText(text: string, query: string): React.ReactNode {
     const isMatch = terms.some(term => part.toLowerCase() === term.toLowerCase());
     if (isMatch) {
       return (
-        <mark key={i} className="bg-yellow-200 text-primary-800 px-0.5 rounded">
+        <mark key={i} className="bg-yellow-200 text-gray-800 px-0.5 rounded">
           {part}
         </mark>
       );
@@ -115,7 +115,7 @@ function getFileIcon(fileName: string) {
       );
     default:
       return (
-        <svg className="w-8 h-8 text-primary-400" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
           <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M13,9V3.5L18.5,9H13" />
         </svg>
       );
@@ -135,14 +135,14 @@ function ResultSkeleton() {
   return (
     <div className="result-item animate-pulse">
       <div className="flex gap-4">
-        <div className="w-12 h-12 bg-cream-300 rounded-lg" />
+        <div className="w-12 h-12 bg-gray-200 rounded-lg" />
         <div className="flex-1 space-y-3">
-          <div className="h-5 bg-cream-300 rounded w-1/3" />
-          <div className="h-4 bg-cream-200 rounded w-full" />
-          <div className="h-4 bg-cream-200 rounded w-2/3" />
+          <div className="h-5 bg-gray-200 rounded w-1/3" />
+          <div className="h-4 bg-gray-100 rounded w-full" />
+          <div className="h-4 bg-gray-100 rounded w-2/3" />
           <div className="flex gap-2">
-            <div className="h-6 w-16 bg-cream-300 rounded" />
-            <div className="h-6 w-20 bg-cream-300 rounded" />
+            <div className="h-6 w-16 bg-gray-200 rounded" />
+            <div className="h-6 w-20 bg-gray-200 rounded" />
           </div>
         </div>
       </div>
@@ -168,27 +168,27 @@ function DocumentCard({
   const displayText = textContent.length > 200 ? textContent.substring(0, 200) + "..." : textContent;
 
   return (
-    <article className="bg-white rounded-xl border border-cream-200 shadow-sm hover:shadow-md transition-all overflow-hidden">
+    <article className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all overflow-hidden">
       {/* Document Header */}
       <div
-        className="p-4 cursor-pointer hover:bg-cream-50 transition-colors"
+        className="p-4 cursor-pointer hover:bg-gray-50 transition-colors"
         onClick={() => onResultClick(firstPage)}
       >
         <div className="flex gap-4">
           {/* File Icon */}
-          <div className="flex-shrink-0 w-12 h-12 bg-cream-100 rounded-lg flex items-center justify-center">
+          <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
             {getFileIcon(document.file_name)}
           </div>
 
           {/* Content */}
           <div className="flex-1 min-w-0">
             {/* Title */}
-            <h3 className="text-lg font-semibold text-primary-800 mb-1 hover:text-primary-900 transition-colors">
+            <h3 className="text-lg font-semibold text-gray-800 mb-1 hover:text-gray-900 transition-colors">
               {document.file_name}
             </h3>
 
             {/* Text Preview */}
-            <p className="text-primary-600 text-sm line-clamp-2 mb-3">
+            <p className="text-gray-600 text-sm line-clamp-2 mb-3">
               {highlightText(displayText, query)}
             </p>
 
@@ -214,7 +214,7 @@ function DocumentCard({
           {/* Expand Arrow */}
           <div className="flex-shrink-0 self-center">
             <svg
-              className="w-5 h-5 text-primary-400"
+              className="w-5 h-5 text-gray-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -228,13 +228,13 @@ function DocumentCard({
       {/* Pages List (if more than 1 page) */}
       {document.pages.length > 1 && (
         <>
-          <div className="px-4 border-t border-cream-100">
+          <div className="px-4 border-t border-gray-100">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 setIsExpanded(!isExpanded);
               }}
-              className="w-full py-2 flex items-center justify-between text-sm text-primary-500 hover:text-primary-700 transition-colors"
+              className="w-full py-2 flex items-center justify-between text-sm text-gray-500 hover:text-gray-700 transition-colors"
             >
               <span>Voir toutes les pages ({document.pages.length})</span>
               <svg
@@ -249,7 +249,7 @@ function DocumentCard({
           </div>
 
           {isExpanded && (
-            <div className="border-t border-cream-100 bg-cream-50 divide-y divide-cream-100">
+            <div className="border-t border-gray-100 bg-gray-50 divide-y divide-gray-100">
               {document.pages.map((page) => {
                 const pageText = page.text_content || page.content || "";
                 const pagePreview = pageText.length > 150 ? pageText.substring(0, 150) + "..." : pageText;
@@ -258,16 +258,16 @@ function DocumentCard({
                   <div
                     key={page.id}
                     onClick={() => onResultClick(page)}
-                    className={`px-4 py-3 cursor-pointer hover:bg-cream-100 transition-colors ${
+                    className={`px-4 py-3 cursor-pointer hover:bg-gray-100 transition-colors ${
                       selectedId === page.id ? "bg-primary-50 border-l-2 border-primary-500" : ""
                     }`}
                   >
                     <div className="flex items-start gap-3">
-                      <span className="flex-shrink-0 w-8 h-8 bg-cream-200 rounded-lg flex items-center justify-center text-sm font-medium text-primary-700">
+                      <span className="flex-shrink-0 w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center text-sm font-medium text-gray-700">
                         {page.page_number}
                       </span>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm text-primary-600 line-clamp-2">
+                        <p className="text-sm text-gray-600 line-clamp-2">
                           {highlightText(pagePreview, query)}
                         </p>
                         <span className={`inline-block mt-1 px-2 py-0.5 text-xs font-medium rounded-full border ${getScoreColor(page.score)}`}>

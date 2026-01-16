@@ -45,7 +45,7 @@ export function SearchBox({ value, onChange, onSearch, isLoading }: SearchBoxPro
     <form onSubmit={handleSubmit} className="relative max-w-3xl mx-auto">
       <div className="relative group">
         {/* Search Icon */}
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-400 
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 
                       group-focus-within:text-primary-600 transition-colors">
           {isLoading ? (
             <svg 
@@ -91,9 +91,9 @@ export function SearchBox({ value, onChange, onSearch, isLoading }: SearchBoxPro
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="Rechercher des documents, rapports, procédures..."
-          className="w-full h-14 pl-12 pr-32 text-lg bg-white border-2 border-cream-300
+          className="w-full h-14 pl-12 pr-32 text-lg bg-white border-2 border-gray-200
                    rounded-xl shadow-sm
-                   placeholder:text-primary-300
+                   placeholder:text-gray-400
                    focus:border-primary-500 focus:ring-4 focus:ring-primary-100
                    transition-all duration-200"
           aria-label="Recherche"
@@ -106,8 +106,8 @@ export function SearchBox({ value, onChange, onSearch, isLoading }: SearchBoxPro
             <button
               type="button"
               onClick={handleClear}
-              className="p-2 text-primary-400 hover:text-primary-600 
-                       hover:bg-cream-200 rounded-lg transition-colors"
+              className="p-2 text-gray-400 hover:text-gray-600 
+                       hover:bg-gray-100 rounded-lg transition-colors"
               aria-label="Effacer la recherche"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -123,10 +123,10 @@ export function SearchBox({ value, onChange, onSearch, isLoading }: SearchBoxPro
 
           {/* Keyboard Shortcut Hint */}
           <div className="hidden sm:flex items-center gap-1 px-2 py-1 
-                        bg-cream-200 rounded border border-cream-300">
-            <kbd className="text-xs font-mono text-primary-500">Ctrl</kbd>
-            <span className="text-primary-400">+</span>
-            <kbd className="text-xs font-mono text-primary-500">K</kbd>
+                        bg-gray-100 rounded border border-gray-200">
+            <kbd className="text-xs font-mono text-gray-500">Ctrl</kbd>
+            <span className="text-gray-400">+</span>
+            <kbd className="text-xs font-mono text-gray-500">K</kbd>
           </div>
 
           {/* Search Button */}
@@ -147,8 +147,8 @@ export function SearchBox({ value, onChange, onSearch, isLoading }: SearchBoxPro
 
       {/* Search Tips */}
       <div className="mt-3 text-center">
-        <p className="text-sm text-primary-400">
-          <span className="font-medium text-primary-500">Astuce:</span>{" "}
+        <p className="text-sm text-gray-500">
+          <span className="font-medium text-gray-600">Astuce:</span>{" "}
           Utilisez des phrases naturelles pour une recherche sémantique plus précise
         </p>
       </div>
