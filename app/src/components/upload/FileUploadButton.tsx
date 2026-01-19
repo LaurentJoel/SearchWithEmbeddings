@@ -180,22 +180,22 @@ export function FileUploadButton({
       {/* Upload results dropdown */}
       {showDropdown && (
         <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg 
-                       border border-cream-200 z-50 overflow-hidden">
-          <div className="px-4 py-3 border-b border-cream-100 bg-cream-50">
+                       border border-gray-200 z-50 overflow-hidden">
+          <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
             <div className="flex items-center justify-between">
-              <h4 className="font-medium text-primary-800">
+              <h4 className="font-medium text-gray-800">
                 {isUploading ? "Upload en cours..." : "Upload terminé"}
               </h4>
               <button
                 onClick={() => setShowDropdown(false)}
-                className="text-primary-400 hover:text-primary-600"
+                className="text-gray-400 hover:text-gray-600"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
-            <p className="text-sm text-primary-500 mt-1">
+            <p className="text-sm text-gray-500 mt-1">
               Division: <span className="font-medium">{userDivision}</span>
             </p>
           </div>
@@ -204,13 +204,13 @@ export function FileUploadButton({
             {uploadedFiles.map((file, index) => (
               <li
                 key={index}
-                className="px-4 py-3 border-b border-cream-100 last:border-0"
+                className="px-4 py-3 border-b border-gray-100 last:border-0"
               >
                 <div className="flex items-start gap-3">
                   {/* Status icon */}
                   <div className="flex-shrink-0 mt-0.5">
                     {file.status === "uploading" && (
-                      <svg className="w-5 h-5 text-primary-400 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 text-gray-400 animate-spin" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                       </svg>
@@ -229,12 +229,12 @@ export function FileUploadButton({
 
                   {/* File info */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-primary-800 truncate">
+                    <p className="text-sm font-medium text-gray-800 truncate">
                       {file.name}
                     </p>
                     {file.message && (
                       <p className={`text-xs mt-0.5 ${
-                        file.status === "error" ? "text-red-500" : "text-primary-400"
+                        file.status === "error" ? "text-red-500" : "text-gray-400"
                       }`}>
                         {file.message}
                       </p>

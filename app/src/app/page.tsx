@@ -43,7 +43,7 @@ export default function HomePage() {
     dateFrom: "",
     dateTo: "",
     fileType: "",
-    searchMode: "hybrid",
+    searchMode: "keyword",
   });
   const [totalResults, setTotalResults] = useState(0);
   const [searchTime, setSearchTime] = useState(0);
@@ -198,7 +198,8 @@ export default function HomePage() {
                         ({(searchTime / 1000).toFixed(2)}s)
                       </span>
                     </p>
-                    <div className="flex items-center gap-2 text-sm text-primary-500">
+                    {/* Search mode indicator - Hidden for now
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
                       <span>Mode:</span>
                       <span className="px-2 py-1 bg-primary-100 rounded text-primary-700 font-medium">
                         {filters.searchMode === "hybrid" 
@@ -208,6 +209,7 @@ export default function HomePage() {
                             : "Mots-clés"}
                       </span>
                     </div>
+                    */}
                   </div>
                 )}
 
@@ -225,16 +227,16 @@ export default function HomePage() {
             {!isLoading && query && results.length === 0 && (
               <div className="text-center py-16">
                 <div className="inline-flex items-center justify-center w-16 h-16 
-                              rounded-full bg-primary-100 text-primary-400 mb-4">
+                              rounded-full bg-gray-100 text-gray-400 mb-4">
                   <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                           d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 20a8 8 0 100-16 8 8 0 000 16z" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-primary-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Aucun résultat trouvé
                 </h3>
-                <p className="text-primary-500 max-w-md mx-auto">
+                <p className="text-gray-500 max-w-md mx-auto">
                   Essayez de modifier votre recherche ou d'utiliser des termes différents.
                   La recherche sémantique peut trouver des concepts similaires.
                 </p>
@@ -252,10 +254,10 @@ export default function HomePage() {
                           d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>
-                <h2 className="text-2xl font-heading font-bold text-primary-800 mb-3">
+                <h2 className="text-2xl font-heading font-bold text-gray-800 mb-3">
                   Commencez votre recherche
                 </h2>
-                <p className="text-primary-500 max-w-lg mx-auto mb-8">
+                <p className="text-gray-500 max-w-lg mx-auto mb-8">
                   Entrez un terme, une phrase ou une question. Notre système utilise 
                   l'intelligence artificielle pour comprendre le sens de votre recherche 
                   et trouver les documents les plus pertinents.
@@ -265,9 +267,9 @@ export default function HomePage() {
                     <button
                       key={suggestion}
                       onClick={() => setQuery(suggestion)}
-                      className="px-4 py-2 bg-cream-200 hover:bg-cream-300 
-                               text-primary-700 rounded-lg transition-colors 
-                               border border-cream-300"
+                      className="px-4 py-2 bg-gray-100 hover:bg-gray-200 
+                               text-gray-700 rounded-lg transition-colors 
+                               border border-gray-200"
                     >
                       {suggestion}
                     </button>

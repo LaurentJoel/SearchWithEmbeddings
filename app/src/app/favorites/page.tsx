@@ -72,12 +72,12 @@ export default function FavoritesPage() {
       case 'doc':
         return <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M13,9V3.5L18.5,9H13Z" /></svg>;
       default:
-        return <svg className="w-8 h-8 text-primary-400" fill="currentColor" viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M13,9V3.5L18.5,9H13Z" /></svg>;
+        return <svg className="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M13,9V3.5L18.5,9H13Z" /></svg>;
     }
   };
 
   return (
-    <div className="min-h-screen bg-cream-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
       
       <div className="flex flex-1 overflow-hidden">
@@ -87,10 +87,10 @@ export default function FavoritesPage() {
           <div className="max-w-4xl mx-auto px-6 py-8">
             {/* Header */}
             <div className="mb-8">
-              <h1 className="text-2xl font-heading font-bold text-primary-800">
+              <h1 className="text-2xl font-heading font-bold text-gray-800">
                 Favoris
               </h1>
-              <p className="text-primary-500 mt-1">
+              <p className="text-gray-500 mt-1">
                 Accédez rapidement à vos documents favoris
               </p>
             </div>
@@ -99,12 +99,12 @@ export default function FavoritesPage() {
             {isLoading ? (
               <div className="space-y-4">
                 {[...Array(3)].map((_, i) => (
-                  <div key={i} className="bg-white rounded-xl p-5 border border-cream-200 animate-pulse">
+                  <div key={i} className="bg-white rounded-xl p-5 border border-gray-200 animate-pulse">
                     <div className="flex gap-4">
-                      <div className="w-12 h-12 bg-cream-300 rounded-lg" />
+                      <div className="w-12 h-12 bg-gray-200 rounded-lg" />
                       <div className="flex-1">
-                        <div className="h-5 bg-cream-300 rounded w-1/2 mb-2" />
-                        <div className="h-4 bg-cream-200 rounded w-1/3" />
+                        <div className="h-5 bg-gray-200 rounded w-1/2 mb-2" />
+                        <div className="h-4 bg-gray-100 rounded w-1/3" />
                       </div>
                     </div>
                   </div>
@@ -113,16 +113,16 @@ export default function FavoritesPage() {
             ) : favorites.length === 0 ? (
               <div className="text-center py-16">
                 <div className="inline-flex items-center justify-center w-16 h-16
-                               rounded-full bg-cream-200 text-primary-400 mb-4">
+                               rounded-full bg-gray-100 text-gray-400 mb-4">
                   <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                       d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-primary-800 mb-2">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   Aucun favori
                 </h3>
-                <p className="text-primary-500 max-w-sm mx-auto mb-4">
+                <p className="text-gray-500 max-w-sm mx-auto mb-4">
                   Ajoutez des documents à vos favoris pour y accéder plus rapidement
                 </p>
                 <a href="/" className="btn btn-primary inline-flex items-center gap-2">
@@ -138,19 +138,19 @@ export default function FavoritesPage() {
                 {favorites.map((favorite) => (
                   <div
                     key={favorite.id}
-                    className="bg-white rounded-xl p-5 border border-cream-200
+                    className="bg-white rounded-xl p-5 border border-gray-200
                               hover:border-primary-300 hover:shadow-md transition-all group"
                   >
                     <div className="flex items-center gap-4">
                       {/* Icon */}
-                      <div className="flex-shrink-0 w-12 h-12 bg-cream-100 rounded-lg
+                      <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-lg
                                      flex items-center justify-center">
                         {getFileIcon(favorite.file_name)}
                       </div>
 
                       {/* Content */}
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-primary-800 mb-1 truncate">
+                        <h3 className="font-semibold text-gray-800 mb-1 truncate">
                           {favorite.file_name}
                         </h3>
                         <div className="flex items-center gap-3 text-sm">
@@ -158,7 +158,7 @@ export default function FavoritesPage() {
                                          rounded-full text-xs font-medium uppercase">
                             {favorite.division}
                           </span>
-                          <span className="text-primary-400">
+                          <span className="text-gray-400">
                             Ajouté le {formatDate(favorite.added_at)}
                           </span>
                         </div>
@@ -169,8 +169,8 @@ export default function FavoritesPage() {
                         <a
                           href={`/api/document/${encodeURIComponent(favorite.document_id)}`}
                           target="_blank"
-                          className="p-2 hover:bg-cream-100 rounded-lg text-primary-500
-                                    hover:text-primary-700 transition-colors"
+                          className="p-2 hover:bg-gray-100 rounded-lg text-gray-500
+                                    hover:text-gray-700 transition-colors"
                           title="Ouvrir"
                         >
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -182,7 +182,7 @@ export default function FavoritesPage() {
                         </a>
                         <button
                           onClick={() => removeFavorite(favorite.id)}
-                          className="p-2 hover:bg-red-50 rounded-lg text-primary-400
+                          className="p-2 hover:bg-red-50 rounded-lg text-gray-400
                                     hover:text-red-600 transition-colors"
                           title="Retirer des favoris"
                         >

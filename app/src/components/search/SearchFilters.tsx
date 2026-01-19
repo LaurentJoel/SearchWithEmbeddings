@@ -102,7 +102,7 @@ export function SearchFilters({ filters, onChange }: SearchFiltersProps) {
 
   return (
     <div className="max-w-3xl mx-auto mt-4">
-      {/* Search Mode Toggle */}
+      {/* Search Mode Toggle - Hidden for now
       <div className="flex justify-center gap-2 mb-4">
         {searchModes.map((mode) => (
           <button
@@ -124,6 +124,7 @@ export function SearchFilters({ filters, onChange }: SearchFiltersProps) {
           </button>
         ))}
       </div>
+      */}
 
       {/* Expand/Collapse Button */}
       <button

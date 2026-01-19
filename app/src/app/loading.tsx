@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-cream-50 flex items-center justify-center">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="text-center">
         {/* Animated Logo */}
         <div className="inline-flex items-center justify-center w-20 h-20 
@@ -19,7 +19,7 @@ export default function Loading() {
         </div>
         
         {/* Text */}
-        <p className="text-primary-600 font-medium">
+        <p className="text-gray-600 font-medium">
           Chargement...
         </p>
       </div>

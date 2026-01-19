@@ -14,7 +14,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-cream-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="text-center max-w-md">
         {/* Error Icon */}
         <div className="inline-flex items-center justify-center w-24 h-24 
@@ -35,11 +35,11 @@ export default function Error({
         </div>
         
         {/* Title */}
-        <h1 className="text-2xl font-bold text-primary-800 mb-3">
+        <h1 className="text-2xl font-bold text-gray-800 mb-3">
           Une erreur est survenue
         </h1>
         
-        <p className="text-primary-500 mb-6">
+        <p className="text-gray-500 mb-6">
           Nous sommes désolés, quelque chose s'est mal passé. 
           Veuillez réessayer ou contacter l'administrateur si le problème persiste.
         </p>

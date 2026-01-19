@@ -346,11 +346,11 @@ export function DocumentViewer({ result, query, onClose }: DocumentViewerProps) 
       </aside>
 
       {/* Main Viewer */}
-      <div className="flex-1 flex flex-col bg-cream-200">
+      <div className="flex-1 flex flex-col bg-gray-100">
         {/* Header */}
-        <header className="h-14 bg-white border-b border-cream-300 px-4 flex items-center justify-between">
+        <header className="h-14 bg-white border-b border-gray-200 px-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <h2 className="font-semibold text-primary-800 truncate max-w-md">
+            <h2 className="font-semibold text-gray-800 truncate max-w-md">
               {result.file_name}
             </h2>
             <span className="px-2 py-1 bg-primary-100 text-primary-700 text-xs rounded-full uppercase">
@@ -360,22 +360,22 @@ export function DocumentViewer({ result, query, onClose }: DocumentViewerProps) 
 
           <div className="flex items-center gap-3">
             {/* Zoom Controls */}
-            <div className="flex items-center gap-1 bg-cream-100 rounded-lg p-1">
+            <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
               <button
                 onClick={() => setZoom((z) => Math.max(z - 0.25, 0.5))}
-                className="p-1.5 hover:bg-cream-200 rounded text-primary-600"
+                className="p-1.5 hover:bg-gray-200 rounded text-gray-600"
                 title="Zoom arriere"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
                 </svg>
               </button>
-              <span className="px-2 text-sm text-primary-700 font-medium min-w-[3rem] text-center">
+              <span className="px-2 text-sm text-gray-700 font-medium min-w-[3rem] text-center">
                 {Math.round(zoom * 100)}%
               </span>
               <button
                 onClick={() => setZoom((z) => Math.min(z + 0.25, 3))}
-                className="p-1.5 hover:bg-cream-200 rounded text-primary-600"
+                className="p-1.5 hover:bg-gray-200 rounded text-gray-600"
                 title="Zoom avant"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -388,7 +388,7 @@ export function DocumentViewer({ result, query, onClose }: DocumentViewerProps) 
             <a
               href={`/api/document/${encodeURIComponent(result.file_path)}/download`}
               download={result.file_name}
-              className="p-2 hover:bg-cream-100 rounded-lg text-primary-600 transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg text-gray-600 transition-colors"
               title="Telecharger"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -400,7 +400,7 @@ export function DocumentViewer({ result, query, onClose }: DocumentViewerProps) 
             {/* Close */}
             <button
               onClick={onClose}
-              className="p-2 hover:bg-cream-100 rounded-lg text-primary-600 transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg text-gray-600 transition-colors"
               title="Fermer (Echap)"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -416,7 +416,7 @@ export function DocumentViewer({ result, query, onClose }: DocumentViewerProps) 
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
                 <div className="inline-block w-12 h-12 border-4 border-primary-300 border-t-primary-600 rounded-full animate-spin mb-4" />
-                <p className="text-primary-600">Chargement du document...</p>
+                <p className="text-gray-600">Chargement du document...</p>
               </div>
             </div>
           ) : error ? (
@@ -437,8 +437,8 @@ export function DocumentViewer({ result, query, onClose }: DocumentViewerProps) 
                 className="bg-white rounded-lg shadow-lg overflow-hidden"
               >
                 {/* Page Header */}
-                <div className="px-4 py-2 bg-cream-100 border-b border-cream-200 flex items-center justify-between">
-                  <span className="text-sm font-medium text-primary-700">
+                <div className="px-4 py-2 bg-gray-100 border-b border-gray-200 flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-700">
                     Page {page.pageNumber}
                     {page.pageNumber === 1 && " (Premiere)"}
                     {lastPage && page.pageNumber === lastPage.pageNumber && page.pageNumber !== 1 && " (Derniere)"}

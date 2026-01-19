@@ -17,6 +17,12 @@ interface Stats {
   searches: number;
 }
 
+interface UserStats {
+  totalSearches: number;
+  totalUploads: number;
+  totalDocumentsViewed: number;
+}
+
 interface AdminStats {
   total_documents: number;
   total_pages: number;
@@ -126,6 +132,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const { user, isLoading: authLoading } = useAuth();
   const [stats, setStats] = useState<Stats>({ documents: 0, divisions: 6, users: 0, searches: 0 });
   const [adminStats, setAdminStats] = useState<AdminStats | null>(null);
+  const [userStats, setUserStats] = useState<UserStats | null>(null);
   
   // Debug: Log user info
   useEffect(() => {
@@ -151,6 +158,29 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
     const interval = setInterval(fetchStats, 30000);
     return () => clearInterval(interval);
   }, []);
+
+  // Fetch user stats for regular users
+  useEffect(() => {
+    if (authLoading || !user) return;
+
+    const fetchUserStats = async () => {
+      try {
+        const response = await fetch("/api/user/stats", {
+          credentials: "include"
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setUserStats(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user stats:", error);
+      }
+    };
+
+    fetchUserStats();
+    const interval = setInterval(fetchUserStats, 30000);
+    return () => clearInterval(interval);
+  }, [user, authLoading]);
 
   // Fetch admin stats if user is admin
   useEffect(() => {
@@ -313,14 +343,23 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             </>
           )}
 
+          {/* User Statistics Section - Shows user's own activity */}
           <div className="px-4">
             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
-              Statistiques
+              Mes Statistiques
             </p>
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-primary-50 rounded-lg p-3 text-center">
-                <p className="text-2xl font-bold text-primary-600">{formatNumber(stats.documents)}</p>
-                <p className="text-xs text-gray-500">Documents</p>
+                <p className="text-2xl font-bold text-primary-600">{userStats ? formatNumber(userStats.totalUploads) : 0}</p>
+                <p className="text-xs text-gray-500">Documents ajoutés</p>
+              </div>
+              <div className="bg-primary-50 rounded-lg p-3 text-center">
+                <p className="text-2xl font-bold text-primary-600">{userStats ? formatNumber(userStats.totalSearches) : 0}</p>
+                <p className="text-xs text-gray-500">Recherches</p>
+              </div>
+              <div className="bg-primary-50 rounded-lg p-3 text-center">
+                <p className="text-2xl font-bold text-primary-600">{userStats ? formatNumber(userStats.totalDocumentsViewed) : 0}</p>
+                <p className="text-xs text-gray-500">Documents vus</p>
               </div>
               <div className="bg-primary-50 rounded-lg p-3 text-center">
                 <p className="text-2xl font-bold text-primary-600">{stats.divisions}</p>

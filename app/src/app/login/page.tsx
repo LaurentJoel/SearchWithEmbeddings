@@ -51,7 +51,7 @@ export default function LoginPage() {
 
         {/* Login Card */}
         <div className="bg-white rounded-2xl shadow-xl p-8">
-          <h2 className="text-xl font-semibold text-primary-800 mb-6 text-center">
+          <h2 className="text-xl font-semibold text-gray-800 mb-6 text-center">
             Connexion
           </h2>
 
@@ -69,7 +69,7 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-primary-700 mb-1">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Adresse email
               </label>
               <input
@@ -79,8 +79,8 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="email"
-                className="w-full px-4 py-3 bg-cream-50 border border-cream-300 rounded-lg
-                         text-primary-800 placeholder:text-primary-300
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg
+                         text-gray-800 placeholder:text-gray-400
                          focus:border-primary-500 focus:ring-2 focus:ring-primary-100
                          transition-all"
                 placeholder="votre.email@cenadi.cm"
@@ -89,7 +89,7 @@ export default function LoginPage() {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-primary-700 mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                 Mot de passe
               </label>
               <div className="relative">
@@ -100,8 +100,8 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   autoComplete="current-password"
-                  className="w-full px-4 py-3 bg-cream-50 border border-cream-300 rounded-lg
-                           text-primary-800 placeholder:text-primary-300 pr-12
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg
+                           text-gray-800 placeholder:text-gray-400 pr-12
                            focus:border-primary-500 focus:ring-2 focus:ring-primary-100
                            transition-all"
                   placeholder="********"
@@ -109,8 +109,8 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-primary-400
-                            hover:text-primary-600 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400
+                            hover:text-gray-600 transition-colors"
                 >
                   {showPassword ? (
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -158,17 +158,17 @@ export default function LoginPage() {
           {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-cream-300" />
+              <div className="w-full border-t border-gray-200" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-primary-400">ou</span>
+              <span className="px-2 bg-white text-gray-400">ou</span>
             </div>
           </div>
 
           {/* Register Link */}
-          <p className="text-center text-sm text-primary-500">
+          <p className="text-center text-sm text-gray-500">
             Pas encore de compte?{" "}
-            <Link href="/register" className="font-semibold text-primary-700 hover:text-primary-800 hover:underline">
+            <Link href="/register" className="font-semibold text-primary-600 hover:text-primary-700 hover:underline">
               Creer un compte
             </Link>
           </p>

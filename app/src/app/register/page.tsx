@@ -98,7 +98,7 @@ export default function RegisterPage() {
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8">
-          <h2 className="text-xl font-semibold text-primary-800 mb-6 text-center">Creer un compte</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-6 text-center">Creer un compte</h2>
 
           {error && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex items-center gap-2">
@@ -111,23 +111,23 @@ export default function RegisterPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-primary-700 mb-1">Nom complet</label>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nom complet</label>
               <input id="name" name="name" type="text" value={formData.name} onChange={handleChange} required
-                className="w-full px-4 py-3 bg-cream-50 border border-cream-300 rounded-lg text-primary-800 placeholder:text-primary-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 placeholder:text-gray-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all"
                 placeholder="Jean Dupont" />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-primary-700 mb-1">Adresse email</label>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Adresse email</label>
               <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required autoComplete="email"
-                className="w-full px-4 py-3 bg-cream-50 border border-cream-300 rounded-lg text-primary-800 placeholder:text-primary-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 placeholder:text-gray-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all"
                 placeholder="votre.email@cenadi.cm" />
             </div>
 
             <div>
-              <label htmlFor="division" className="block text-sm font-medium text-primary-700 mb-1">Division</label>
+              <label htmlFor="division" className="block text-sm font-medium text-gray-700 mb-1">Division</label>
               <select id="division" name="division" value={formData.division} onChange={handleChange} required
-                className="w-full px-4 py-3 bg-cream-50 border border-cream-300 rounded-lg text-primary-800 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all">
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all">
                 <option value="">Selectionnez une division</option>
                 {DIVISIONS.map((div) => (
                   <option key={div.code} value={div.code}>{div.code} - {div.name}</option>
@@ -136,9 +136,9 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="role" className="block text-sm font-medium text-primary-700 mb-1">Role</label>
+              <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">Role</label>
               <select id="role" name="role" value={formData.role} onChange={handleChange} required
-                className="w-full px-4 py-3 bg-cream-50 border border-cream-300 rounded-lg text-primary-800 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all">
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all">
                 {ROLES.map((role) => (
                   <option key={role.value} value={role.value}>{role.label}</option>
                 ))}
@@ -146,12 +146,12 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-primary-700 mb-1">Mot de passe</label>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Mot de passe</label>
               <div className="relative">
                 <input id="password" name="password" type={showPassword ? "text" : "password"} value={formData.password} onChange={handleChange} required autoComplete="new-password"
-                  className="w-full px-4 py-3 bg-cream-50 border border-cream-300 rounded-lg text-primary-800 placeholder:text-primary-300 pr-12 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 placeholder:text-gray-400 pr-12 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all"
                   placeholder="********" />
-                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-primary-400 hover:text-primary-600 transition-colors">
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
                   {showPassword ? (
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
                   ) : (
@@ -162,12 +162,12 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-primary-700 mb-1">Confirmer le mot de passe</label>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">Confirmer le mot de passe</label>
               <div className="relative">
                 <input id="confirmPassword" name="confirmPassword" type={showConfirmPassword ? "text" : "password"} value={formData.confirmPassword} onChange={handleChange} required autoComplete="new-password"
-                  className="w-full px-4 py-3 bg-cream-50 border border-cream-300 rounded-lg text-primary-800 placeholder:text-primary-300 pr-12 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 placeholder:text-gray-400 pr-12 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all"
                   placeholder="********" />
-                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-primary-400 hover:text-primary-600 transition-colors">
+                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
                   {showConfirmPassword ? (
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
                   ) : (
@@ -192,13 +192,13 @@ export default function RegisterPage() {
           </form>
 
           <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-cream-300" /></div>
-            <div className="relative flex justify-center text-sm"><span className="px-2 bg-white text-primary-400">ou</span></div>
+            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-200" /></div>
+            <div className="relative flex justify-center text-sm"><span className="px-2 bg-white text-gray-400">ou</span></div>
           </div>
 
-          <p className="text-center text-sm text-primary-500">
+          <p className="text-center text-sm text-gray-500">
             Deja un compte?{" "}
-            <Link href="/login" className="font-semibold text-primary-700 hover:text-primary-800 hover:underline">Se connecter</Link>
+            <Link href="/login" className="font-semibold text-primary-600 hover:text-primary-700 hover:underline">Se connecter</Link>
           </p>
         </div>
 
